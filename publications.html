@@ -39,6 +39,31 @@
 		a {
 			color: #333;
 		}
+		
+				/* Style the link container */
+		.link-container {
+			position: fixed;
+			top: 0;
+			right: 0;
+			padding: 10px;
+			background-color: #f1f1f1;
+			z-index: 9999;
+		}
+
+		/* Style the link */
+		.link-container a {
+			color: #333;
+			font-size: 16px;
+			text-decoration: none;
+			padding: 5px 10px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
+
+		/* Change the link color on hover */
+		.link-container a:hover {
+			background-color: #ddd;
+		}
 	</style>
 </head>
 <body>
@@ -47,6 +72,12 @@
 		<!-- <p>Researcher, Power System Engineering Center (PSEC), National Renewable Energy Laboratory (NREL), CO</p> -->
 	</header>
 
+	<!-- Create the link container -->
+	<div class="link-container">
+		<a href="index.html">Home</a>
+		<!-- <a href="#">Climbing</a> -->
+	</div>
+	
 	<main>
 
 		<section>
@@ -106,7 +137,7 @@
 			<!--PhD Thesis-->
 			<h2>PhD Thesis</h2>
 			<ul>
-				<li>X. Zhou, "<a href="https://scholar.colorado.edu/tlen_gradetds/31/">Distributed Real-Time Voltage Regulation in Distribution Networks</a>", 2018.</li>
+				<li><strong>X. Zhou</strong>, "<a href="https://scholar.colorado.edu/tlen_gradetds/31/">Distributed Real-Time Voltage Regulation in Distribution Networks</a>", May 2018.</li>
 			</ul> 
 		</section>
 

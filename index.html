@@ -40,13 +40,45 @@
 		a {
 			color: #333;
 		}
+		
+		/* Style the link container */
+		.link-container {
+			position: fixed;
+			top: 0;
+			right: 0;
+			padding: 10px;
+			background-color: #f1f1f1;
+			z-index: 9999;
+		}
+
+		/* Style the link */
+		.link-container a {
+			color: #333;
+			font-size: 16px;
+			text-decoration: none;
+			padding: 5px 10px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
+
+		/* Change the link color on hover */
+		.link-container a:hover {
+			background-color: #ddd;
+		}
+		
 	</style>
 </head>
 <body>
 	<header>
-		<h2>Xinyang Zhou, Ph.D.</h2>
+		<h1>Xinyang Zhou, Ph.D.</h1>
 		<p>Researcher, Power System Engineering Center (PSEC), National Renewable Energy Laboratory (NREL), CO</p>
 	</header>
+
+	<!-- Create the link container -->
+	<div class="link-container">
+		<a href="publications.html">Publications</a>
+		<!-- <a href="#">Climbing</a> -->
+	</div>
 
 	<main>
 		<section>
@@ -61,14 +93,6 @@
 			<!-- <p>My hobbies include hiking, playing guitar, and reading.</p> -->
 		</section>
 
-		<section>
-			<h2>Projects</h2>
-			<ul>
-				<li><a href="publications.html">Project 1</a></li>
-				<li><a href="#">Project 2</a></li>
-				<li><a href="#">Project 3</a></li>
-			</ul>
-		</section>
 
 		<section>
 			<h2>Contact Me</h2>
