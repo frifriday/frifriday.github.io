@@ -1,108 +1,704 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>My Personal Page</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #f1f1f1;
-		}
-		
-		header {
-			background-color: #333;
-			color: white;
-			padding: 20px;
-			text-align: center;
-		}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xinyang Zhou — Senior Researcher at NREL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f2ec;
+      --ink: #1a1814;
+      --mid: #5a5650;
+      --accent: #2c5f2e;
+      --accent-light: #e8f0e8;
+      --rule: #c8c3bb;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
 
-		h1 {
-			margin: 0;
-		}
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(245,242,236,0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 56px;
+    }
+    .nav-name { font-size: 1rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 300;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
 
-		main {
-			max-width: 800px;
-			margin: 0 auto;
-			padding: 20px;
-		}
+    /* LAYOUT */
+    .page { max-width: 840px; margin: 0 auto; padding: 0 2rem; }
 
-		section {
-			margin-bottom: 20px;
-		}
+    /* HERO */
+    header { padding-top: 120px; padding-bottom: 64px; border-bottom: 1px solid var(--rule); }
+    .header-inner { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
+    .name-chinese { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--mid); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+    h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 0.3rem; }
+    .title-line { font-size: 1rem; color: var(--mid); line-height: 1.55; margin-bottom: 1.4rem; }
+    .title-line strong { color: var(--ink); font-weight: 500; }
+    .contact-row { font-family: 'DM Mono', monospace; font-size: 0.74rem; color: var(--mid); letter-spacing: 0.04em; margin-bottom: 1.4rem; }
+    .pill-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .pill {
+      display: inline-block; padding: 0.28rem 0.85rem;
+      border: 1px solid var(--accent); border-radius: 2px;
+      font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em;
+      color: var(--accent); text-decoration: none; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .pill:hover { background: var(--accent); color: #fff; }
+    .avatar-placeholder {
+      width: 140px; height: 140px; border-radius: 2px;
+      background: var(--accent-light); border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .avatar-placeholder svg { width: 64px; height: 64px; opacity: 0.25; }
 
-		img {
-			max-width: 100%;
-			height: auto;
-		}
+    /* SECTIONS */
+    section { padding: 52px 0; border-bottom: 1px solid var(--rule); }
+    section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); margin-bottom: 1.6rem;
+    }
 
-		a {
-			color: #333;
-		}
-		
-		/* Style the link container */
-		.link-container {
-			position: fixed;
-			top: 0;
-			right: 0;
-			padding: 10px;
-			background-color: #333;
-			z-index: 9999;
-		}
+    /* ABOUT */
+    .about-text p { margin-bottom: 1rem; color: #2a2620; }
+    .about-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
-		/* Style the link */
-		.link-container a {
-			color: white;
-			font-size: 16px;
-			text-decoration: none;
-			padding: 5px 10px;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-		}
+    /* RESEARCH TAGS */
+    .research-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+    .tag {
+      padding: 0.22rem 0.72rem; background: var(--accent-light);
+      border: 1px solid #c8d8c8; border-radius: 2px;
+      font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.04em;
+    }
 
-		/* Change the link color on hover */
-		.link-container a:hover {
-			background-color: #666;
-		}
-		
-	</style>
+    /* PUBLICATIONS */
+    .pub-subsection-title {
+      font-size: 1rem; font-weight: 500; color: var(--ink);
+      margin: 2.2rem 0 0.8rem; padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--rule); letter-spacing: 0.01em;
+    }
+    .pub-subsection-title:first-of-type { margin-top: 0; }
+    .pub-list { list-style: none; }
+    .pub-item {
+      display: grid; grid-template-columns: 3rem 1fr;
+      gap: 0 1rem; padding: 1rem 0; border-top: 1px solid #e4e0d8;
+    }
+    .pub-item:first-child { border-top: none; }
+    .pub-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--mid); padding-top: 0.3rem; letter-spacing: 0.02em; white-space: nowrap; }
+    .pub-title { font-size: 0.98rem; font-weight: 500; line-height: 1.45; margin-bottom: 0.15rem; color: var(--ink); }
+    .pub-title a { color: var(--ink); text-decoration: none; }
+    .pub-title a:hover { color: var(--accent); text-decoration: underline; }
+    .pub-authors { font-size: 0.88rem; color: var(--mid); font-style: italic; margin-bottom: 0.15rem; }
+    .pub-venue { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--mid); letter-spacing: 0.03em; margin-bottom: 0.35rem; }
+    .pub-links { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+    .pub-link {
+      font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.06em;
+      padding: 0.12rem 0.5rem; border: 1px solid var(--rule); border-radius: 2px;
+      color: var(--mid); text-decoration: none; text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pub-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* EDUCATION */
+    .edu-list { list-style: none; }
+    .edu-item { display: grid; grid-template-columns: 5rem 1fr; gap: 0 1rem; padding: 1rem 0; border-top: 1px solid #e4e0d8; }
+    .edu-item:first-child { border-top: none; }
+    .edu-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--mid); padding-top: 0.25rem; letter-spacing: 0.03em; }
+    .edu-degree { font-weight: 500; margin-bottom: 0.1rem; }
+    .edu-inst { color: var(--mid); font-size: 0.92rem; }
+
+    /* FOOTER */
+    footer { padding: 2.5rem 0; text-align: center; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--rule); letter-spacing: 0.08em; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    header { animation: fadeUp 0.55s ease both 0.05s; }
+    #about { animation: fadeUp 0.55s ease both 0.12s; }
+    #research { animation: fadeUp 0.55s ease both 0.18s; }
+    #publications { animation: fadeUp 0.55s ease both 0.22s; }
+    #education { animation: fadeUp 0.55s ease both 0.28s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 620px) {
+      nav { padding: 0 1.2rem; }
+      .page { padding: 0 1.2rem; }
+      .header-inner { grid-template-columns: 1fr; }
+      .avatar-placeholder { display: none; }
+      .nav-links { gap: 1rem; }
+      .pub-item { grid-template-columns: 2.4rem 1fr; }
+      .edu-item { grid-template-columns: 3.8rem 1fr; }
+    }
+  </style>
 </head>
 <body>
-	<header>
-		<h1>Xinyang Zhou, Ph.D.</h1>
-		<p>Researcher, Power System Engineering Center (PSEC), National Renewable Energy Laboratory (NREL), CO</p>
-	</header>
 
-	<!-- Create the link container -->
-	<div class="link-container">
-		<a href="publications.html">Publications</a>
-		<!-- <a href="#">Climbing</a> -->
-	</div>
+<nav>
+  <a class="nav-name" href="#top">Xinyang Zhou</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
 
-	<main>
-		<section>
-			<h2>About Me</h2>  <!-- comment here -->
-			<p>I am a Researcher at <a href="https://www.nrel.gov/">NREL</a>, Golden, CO. I received the B.S. degree from <a href="https://www.zju.edu.cn/english/">Zhejiang University</a>, Hangzhou, China, in 2012, and the Ph.D. degree in Telecommunications under supervision of <a href="https://spot.colorado.edu/~lich1539/">Prof. Lijun Chen</a> from the <a href="https://www.colorado.edu/">University of Colorado at Boulder</a>, CO, in 2018. I was a Postdoctoral Researcher at NREL from 2018.5 to 2019.4. My research aims to design distributed optimization and control algorithms for networked systems, particularly, distributed real-time frequency and voltage controls that achieve system-wide optimality and robustness for future power networks with large number of controllable loads and multi-energy systems. My research mainly employs techniques and tools from <em>optimization</em>, <em>control theory</em>, <em>machine learning</em>, and <em>game theory</em>.</p>
+<div class="page" id="top">
 
-			<p>
-				<a href="https://scholar.google.com/citations?user=O02Ls9QAAAAJ&hl=en">Google Scholar</a>
-				&nbsp 
-				<a href="https://www.google.com/url?q=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FXinyang_Zhou2&sa=D&sntz=1&usg=AOvVaw3vm-VK_7a5LepCO0sWmJVJ">Research Gate</a>
-			</p>
-			<!-- <p>My hobbies include hiking, playing guitar, and reading.</p> -->
-		</section>
+  <header>
+    <div class="header-inner">
+      <div class="name-block">
+        <div class="name-chinese">周炘阳 · Xīnyáng Zhōu</div>
+        <h1>Xinyang Zhou</h1>
+        <p class="title-line">
+          <strong>Senior Researcher</strong><br />
+          Power System Engineering Center (PSEC)<br />
+          National Renewable Energy Laboratory (NREL), CO
+        </p>
+        <div class="contact-row">xinyang[dot]zhou[at]nrel[dot]gov</div>
+        <div class="pill-links">
+          <a class="pill" href="https://scholar.google.com/citations?user=O02Ls9QAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>
+          <a class="pill" href="https://www.researchgate.net/profile/Xinyang_Zhou2" target="_blank">ResearchGate</a>
+          <a class="pill" href="https://www.nrel.gov/" target="_blank">NREL</a>
+        </div>
+      </div>
+      <div class="avatar-placeholder">
+        <!-- To add your photo: replace this block with:
+             <img src="photo.jpg" alt="Xinyang Zhou" style="width:100%;height:100%;object-fit:cover;" /> -->
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="24" r="12" fill="#2c5f2e"/>
+          <ellipse cx="32" cy="54" rx="20" ry="12" fill="#2c5f2e"/>
+        </svg>
+      </div>
+    </div>
+  </header>
 
+  <section id="about">
+    <div class="section-label">About</div>
+    <div class="about-text">
+      <p>
+        I am a Senior Researcher at <a href="https://www.nrel.gov/" target="_blank">NREL</a>, Golden, CO.
+        I received the B.S. degree from <a href="http://www.zju.edu.cn/english/" target="_blank">Zhejiang University</a>,
+        Hangzhou, China, in 2012, and the Ph.D. degree in Telecommunications under the supervision of
+        Prof. <a href="https://spot.colorado.edu/~lich1539/" target="_blank">Lijun Chen</a> from the
+        <a href="https://www.colorado.edu/" target="_blank">University of Colorado at Boulder</a>, CO, in 2018.
+        I was a Postdoctoral Researcher at NREL from 2018.5 to 2019.4.
+      </p>
+      <p>
+        My research aims to design distributed optimization and control algorithms for networked systems —
+        particularly, distributed real-time frequency and voltage controls that achieve system-wide optimality
+        and robustness for future power networks with large numbers of controllable loads and multi-energy systems.
+        My research mainly employs techniques and tools from optimization, control theory, and game theory.
+      </p>
+    </div>
+  </section>
 
-		<section>
-			<h2>Contact Me</h2>
-			<p>Email: <a href="mailto:xinyang.zhou.opt@gmail.com">xinyang[dot]zhou[dot]opt[at]gmail[dot]com</a>
-			</p>
-			<p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <a href="mailto:xinyang.zhou.opt@gmail.com">xinyang[dot]zhou[at]nrel[dot]com</a>
-			</p>
-			<!-- <p>Twitter: <a href="https://twitter.com/yourusername">@yourusername</a></p> -->
-			<!-- <p>GitHub: <a href="https://github.com/yourusername">github.com/yourusername</a></p> -->
-		</section>
-	</main>
+  <section id="research">
+    <div class="section-label">Research Interests</div>
+    <div class="research-tags">
+      <span class="tag">Distributed Optimization</span>
+      <span class="tag">Control Theory</span>
+      <span class="tag">Power Systems</span>
+      <span class="tag">Game Theory</span>
+      <span class="tag">Networked Systems</span>
+      <span class="tag">Frequency Control</span>
+      <span class="tag">Voltage Regulation</span>
+      <span class="tag">Multi-Energy Systems</span>
+      <span class="tag">State Estimation</span>
+      <span class="tag">Optimal Power Flow</span>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="section-label">Publications</div>
+
+    <div class="pub-subsection-title">Journal Articles</div>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-num">J16</span>
+        <div>
+          <div class="pub-title">A Hierarchical OPF Algorithm with Improved Gradient Evaluation in Three-Phase Networks</div>
+          <div class="pub-authors">H. Liang, X. Zhou, C. Zhao</div>
+          <div class="pub-venue">Submitted to IEEE Transactions on Smart Grid, 2023</div>
+          <div class="pub-links"><a class="pub-link" href="https://arxiv.org/abs/2306.04350" target="_blank">arXiv</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J15</span>
+        <div>
+          <div class="pub-title"><a href="https://www.sciencedirect.com/science/article/pii/S030626192201741X" target="_blank">Incorporate Day-Ahead Robustness and Real-Time Incentives for Electricity Market Design</a></div>
+          <div class="pub-authors">Y. Guo, X. Zhou, C. Zhao, L. Chen, and T. H. Summer</div>
+          <div class="pub-venue">Applied Energy, 2023</div>
+          <div class="pub-links"><a class="pub-link" href="https://www.sciencedirect.com/science/article/pii/S030626192201741X" target="_blank">Journal</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J14</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/10082902" target="_blank">Optimal Power Flow With State Estimation in the Loop for Distribution Networks</a></div>
+          <div class="pub-authors">Y. Guo, X. Zhou, C. Zhao, L. Chen, and T. H. Summer</div>
+          <div class="pub-venue">IEEE Systems Journal, 2023</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/10082902" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/2005.00345" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J13</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/10081936" target="_blank">An Online Joint Optimization–Estimation Architecture for Distribution Networks</a></div>
+          <div class="pub-authors">Y. Guo, X. Zhou, C. Zhao, L. Chen, G. Hug, T. H. Summers</div>
+          <div class="pub-venue">IEEE Transactions on Control Systems Technology, 2023</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/10081936" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/pdf/2203.11327.pdf" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J12</span>
+        <div>
+          <div class="pub-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0378779622004916" target="_blank">Online Distribution System State Estimation via Stochastic Gradient Algorithm</a></div>
+          <div class="pub-authors">J. Huang, X. Zhou, and B. Cui</div>
+          <div class="pub-venue">Electric Power Systems Research (Power Systems Computation Conference), 2021</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://www.sciencedirect.com/science/article/abs/pii/S0378779622004916" target="_blank">Journal</a>
+            <a class="pub-link" href="https://arxiv.org/abs/2110.00665" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J11</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9292973" target="_blank">Economic Dispatch with Distributed Energy Resources: Co-Optimization of Transmission and Distribution Systems</a></div>
+          <div class="pub-authors">X. Zhou, C.-Y. Chang, A. Bernstein, C. Zhao, and L. Chen</div>
+          <div class="pub-venue">IEEE Control Systems Letters, 5(6), 1994–1999, 2021</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/9292973" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/2010.04262" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J10</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9091863" target="_blank">Reverse and Forward Engineering of Local Voltage Control in Distribution Networks</a></div>
+          <div class="pub-authors">X. Zhou, M. Farivar, Z. Liu, L. Chen, and S. Low</div>
+          <div class="pub-venue">IEEE Transactions on Automatic Control, 66(3), 1116–1128, March 2021</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/9091863" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1801.02015" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J9</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9145691" target="_blank">Online Optimization for Networked Distributed Energy Resources with Time-Coupling Constraints</a></div>
+          <div class="pub-authors">S. Fan, G. He, X. Zhou, M. Cui</div>
+          <div class="pub-venue">IEEE Transactions on Smart Grid, 12(1), 251–267, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/9145691" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://www.techrxiv.org/articles/Online_Optimization_for_Networked_Distributed_Energy_Resources_with_Time-Coupling_Constraints/10032818/1" target="_blank">TechRxiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J8</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9229208" target="_blank">Autonomous Energy Grids: Controlling the Future Grid with Large Amounts of Distributed Energy Resources</a></div>
+          <div class="pub-authors">B. Kroposki, A. Bernstein, J. King, D. Vaidhynathan, X. Zhou, C.-Y. Chang, E. Dall'Anese</div>
+          <div class="pub-venue">IEEE Power &amp; Energy Magazine, 18(6), 37–46, 2020</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/document/9229208" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J7</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9122052" target="_blank">Gradient-Based Multi-Area Distribution System State Estimation</a></div>
+          <div class="pub-authors">X. Zhou, Z. Liu, Y. Guo, C. Zhao, J. Huang, and L. Chen</div>
+          <div class="pub-venue">IEEE Transactions on Smart Grid, 11(6), 5325–5338, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/9122052" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1909.11266" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J6</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/8759982" target="_blank">Online Stochastic Optimization of Networked Distributed Energy Resources</a></div>
+          <div class="pub-authors">X. Zhou, E. Dall'Anese, and L. Chen</div>
+          <div class="pub-venue">IEEE Transactions on Automatic Control, 65(6), 2387–2401, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/8759982" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1711.09953" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J5</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/8879622" target="_blank">Accelerated Voltage Regulation in Multi-Phase Distribution Networks Based on Hierarchical Distributed Algorithm</a></div>
+          <div class="pub-authors">X. Zhou, Z. Liu, C. Zhao, and L. Chen</div>
+          <div class="pub-venue">IEEE Transactions on Power Systems, 35(3), 2047–2058, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/8879622" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1903.00072" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J4</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/8728248" target="_blank">Signal-Anticipation in Local Voltage Control in Distribution Systems</a></div>
+          <div class="pub-authors">Z. Liu, S. You, X. Zhou, G. Ding, and L. Chen</div>
+          <div class="pub-venue">IEEE Transactions on Smart Grid, 11(1), 233–246, 2019</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/8728248" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1811.09365" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J3</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/8329556/" target="_blank">Demand Shaping in Cellular Networks</a></div>
+          <div class="pub-authors">X. Zhou and L. Chen</div>
+          <div class="pub-venue">IEEE Transactions on Control of Network Systems, 6(1), 363–374, 2018</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/8329556/" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1707.02503" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J2</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/8062803/" target="_blank">An Incentive-Based Online Optimization Framework for Distribution Grids</a></div>
+          <div class="pub-authors">X. Zhou, E. Dall'Anese, L. Chen, and A. Simonetto</div>
+          <div class="pub-venue">IEEE Transactions on Automatic Control, 63(7), 2019–2031, 2017</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/8062803/" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1705.01482" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">J1</span>
+        <div>
+          <div class="pub-title"><a href="https://www.sciencedirect.com/science/article/pii/S2405896315021953" target="_blank">A New Perspective to Synchronization in Networks of Coupled Oscillators: Reverse Engineering and Convex Relaxation</a></div>
+          <div class="pub-authors">X. Zhou, L. Chen</div>
+          <div class="pub-venue">IFAC-PapersOnLine, 48(22), 40–45, 2015</div>
+          <div class="pub-links"><a class="pub-link" href="https://www.sciencedirect.com/science/article/pii/S2405896315021953" target="_blank">Journal</a></div>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="pub-subsection-title">Conference Papers</div>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-num">C17</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9867623" target="_blank">Hierarchical Optimal Power Flow with Improved Gradient Evaluation</a></div>
+          <div class="pub-authors">H. Liang, X. Zhou, and C. Zhao</div>
+          <div class="pub-venue">American Control Conference, 2022</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9867623" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/2204.04827" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C16</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9682997" target="_blank">A Generalized LinDistFlow Model for Power Flow Analysis</a></div>
+          <div class="pub-authors">J. Huang, B. Cui, X. Zhou, A. Bernstein</div>
+          <div class="pub-venue">IEEE Conference on Decision and Control, 2021</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/9682997" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/2104.02118" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C15</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9637905" target="_blank">A Scalable Meter Placement Method for Distribution System State Estimation</a></div>
+          <div class="pub-authors">J. Huang, V. Zamani, Y. Yao, X. Guo and X. Zhou</div>
+          <div class="pub-venue">IEEE PES General Meeting, 2021</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9637905" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C14</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/9637893" target="_blank">Performance Evaluation of Distributed Energy Resource Management Algorithm in Large Distribution Networks</a></div>
+          <div class="pub-authors">J. Wang, J. Huang, and X. Zhou</div>
+          <div class="pub-venue">IEEE PES General Meeting, 2021</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/document/9637893" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://doi.org/10.36227/techrxiv.13681891.v1" target="_blank">TechRxiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C13</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9303000/" target="_blank">Multi-Level Optimal Power Flow Solver in Large Distribution Networks</a></div>
+          <div class="pub-authors">X. Zhou, Y. Chen, Z. Liu, C. Zhao, and L. Chen</div>
+          <div class="pub-venue">IEEE SmartGridComm Conference, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9303000/" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/2003.00333" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C12</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9302966" target="_blank">Computation-Efficient Algorithm for Distributed Feedback Optimization of Distribution Grids</a></div>
+          <div class="pub-authors">C.-Y. Chang, X. Zhou, A. Bernstein</div>
+          <div class="pub-venue">IEEE SmartGridComm Conference, 2020</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9302966" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C11</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9302962" target="_blank">Matrix Completion Using Alternating Minimization for Distribution System State Estimation</a></div>
+          <div class="pub-authors">Y. Liu, A. Sagan, A. Bernstein, R. Yang, X. Zhou, and Y. Zhang</div>
+          <div class="pub-venue">IEEE SmartGridComm Conference, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9302962" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1909.12459" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C10</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/9147992" target="_blank">Solving Optimal Power Flow for Distribution Networks with State Estimation Feedback</a></div>
+          <div class="pub-authors">Y. Guo, X. Zhou, C. Zhao, Y. Chen, T. H. Summers, and L. Chen</div>
+          <div class="pub-venue">American Control Conference, Denver, CO, 2020</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9147992" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1909.12763" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C9</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/8814670" target="_blank">Hierarchical Distributed Voltage Regulation in Networked Autonomous Grids</a></div>
+          <div class="pub-authors">X. Zhou, Z. Liu, W. Wang, C. Zhao, F. Ding, and L. Chen</div>
+          <div class="pub-venue">American Control Conference, Philadelphia, PA, 2019</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/8814670" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1809.08624" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C8</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/8340744" target="_blank">Stochastic Dual Algorithm for Voltage Regulation in Distribution Networks with Discrete Loads</a></div>
+          <div class="pub-authors">X. Zhou, Z. Liu, E. Dall'Anese, L. Chen</div>
+          <div class="pub-venue">IEEE SmartGridComm Conference, Dresden, Germany, Oct. 2017</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/8340744" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1708.03613" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C7</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/7963365" target="_blank">Incentive-Based Voltage Regulation in Distribution Networks</a></div>
+          <div class="pub-authors">X. Zhou, E. Dall'Anese, K. Baker, L. Chen</div>
+          <div class="pub-venue">American Control Conference, Seattle, WA, May 2017</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/7963365" target="_blank">IEEE</a>
+            <a class="pub-link" href="https://arxiv.org/abs/1705.01482" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C6</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/7798621" target="_blank">An Incremental Local Voltage Control for Better Voltage Control in Distribution Networks</a></div>
+          <div class="pub-authors">X. Zhou, L. Chen</div>
+          <div class="pub-venue">IEEE Control and Decision Conference, Las Vegas, NV, Dec. 2016</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/7798621" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C5</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/7747940" target="_blank">Local Voltage Control in Distribution Networks: A Game-Theoretic Perspective</a></div>
+          <div class="pub-authors">X. Zhou, J. Tian, L. Chen, E. Dall'Anese</div>
+          <div class="pub-venue">IEEE North American Power Symposium, Denver, CO, Sep. 2016</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/7747940" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C4</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/7447001" target="_blank">Pseudo-Gradient Based Local Voltage Control in Distribution Networks</a></div>
+          <div class="pub-authors">X. Zhou, M. Farivar, L. Chen</div>
+          <div class="pub-venue">IEEE Allerton Conference, Allerton, IL, Sep. 2015</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/7447001" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C3</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/7436388" target="_blank">Local Voltage Control in Distribution Systems: An Incremental Control Algorithm</a></div>
+          <div class="pub-authors">M. Farivar, X. Zhou, L. Chen</div>
+          <div class="pub-venue">IEEE SmartGridComm Conference, Miami, FL, Nov. 2015</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/7436388" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C2</span>
+        <div>
+          <div class="pub-title"><a href="https://link.springer.com/chapter/10.1007/978-3-319-29003-4_9" target="_blank">Panorama: A Framework to Support Collaborative Context Monitoring on Co-Located Mobile Devices</a></div>
+          <div class="pub-authors">K. Alanezi, X. Zhou, L. Chen and S. Misha</div>
+          <div class="pub-venue">MobiCASE, Berlin, Germany, Nov. 2015</div>
+          <div class="pub-links"><a class="pub-link" href="https://link.springer.com/chapter/10.1007/978-3-319-29003-4_9" target="_blank">Springer</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-num">C1</span>
+        <div>
+          <div class="pub-title"><a href="https://ieeexplore.ieee.org/abstract/document/7028513" target="_blank">Demand Shaping in Cellular Networks</a></div>
+          <div class="pub-authors">X. Zhou, L. Chen</div>
+          <div class="pub-venue">IEEE Allerton Conference, Allerton, IL, Oct. 2014</div>
+          <div class="pub-links"><a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/7028513" target="_blank">IEEE</a></div>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="pub-subsection-title">Patent</div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <span class="pub-num">P1</span>
+        <div>
+          <div class="pub-title"><a href="https://appft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&p=1&u=%2Fnetahtml%2FPTO%2Fsearch-bool.html&r=1&f=G&l=50&co1=AND&d=PG01&s1=%22HIERARCHICAL+DISTRIBUTED+VOLTAGE+REGULATION%22&OS=%22HIERARCHICAL+DISTRIBUTED+VOLTAGE+REGULATION%22&RS=%22HIERARCHICAL+DISTRIBUTED+VOLTAGE+REGULATION%22" target="_blank">Hierarchical Distributed Voltage Regulation</a></div>
+          <div class="pub-authors">X. Zhou, C. Zhao, Z. Liu, and L. Chen</div>
+          <div class="pub-venue">U.S. Patent No. 11,228,180 B2, Jan. 18, 2022</div>
+          <div class="pub-links"><a class="pub-link" href="https://appft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&p=1&u=%2Fnetahtml%2FPTO%2Fsearch-bool.html&r=1&f=G&l=50&co1=AND&d=PG01&s1=%22HIERARCHICAL+DISTRIBUTED+VOLTAGE+REGULATION%22&OS=%22HIERARCHICAL+DISTRIBUTED+VOLTAGE+REGULATION%22&RS=%22HIERARCHICAL+DISTRIBUTED+VOLTAGE+REGULATION%22" target="_blank">USPTO</a></div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="pub-subsection-title">PhD Thesis</div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <span class="pub-num">T1</span>
+        <div>
+          <div class="pub-title"><a href="https://scholar.colorado.edu/tlen_gradetds/31/" target="_blank">Distributed Real-Time Voltage Regulation in Distribution Networks</a></div>
+          <div class="pub-authors">X. Zhou</div>
+          <div class="pub-venue">University of Colorado at Boulder, 2018</div>
+          <div class="pub-links"><a class="pub-link" href="https://scholar.colorado.edu/tlen_gradetds/31/" target="_blank">CU Scholar</a></div>
+        </div>
+      </li>
+    </ul>
+
+  </section>
+
+  <section id="education">
+    <div class="section-label">Education &amp; Positions</div>
+    <ul class="edu-list">
+      <li class="edu-item">
+        <span class="edu-year">2019–present</span>
+        <div>
+          <div class="edu-degree">Senior Researcher</div>
+          <div class="edu-inst">National Renewable Energy Laboratory (NREL), Golden, CO</div>
+        </div>
+      </li>
+      <li class="edu-item">
+        <span class="edu-year">2018–2019</span>
+        <div>
+          <div class="edu-degree">Postdoctoral Researcher</div>
+          <div class="edu-inst">National Renewable Energy Laboratory (NREL), Golden, CO</div>
+        </div>
+      </li>
+      <li class="edu-item">
+        <span class="edu-year">2018</span>
+        <div>
+          <div class="edu-degree">Ph.D. in Telecommunications</div>
+          <div class="edu-inst">University of Colorado at Boulder · Advisor: Prof. Lijun Chen</div>
+        </div>
+      </li>
+      <li class="edu-item">
+        <span class="edu-year">2012</span>
+        <div>
+          <div class="edu-degree">B.S.</div>
+          <div class="edu-inst">Zhejiang University, Hangzhou, China</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer>© Xinyang Zhou · Built with GitHub Pages</footer>
+
+</div>
 </body>
 </html>
